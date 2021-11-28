@@ -2,7 +2,7 @@ local L = LibStub("AceLocale-3.0"):GetLocale("ClassicCodex")
 
 CodexBrowserFavorites = {["units"] = {}, ["objects"] = {}, ["items"] = {}, ["quests"] = {}}
 
-local tooltipLimit = 5
+local tooltipLimit = 25
 local searchLimit = 512
 
 local items = CodexDB["items"]["data"]
@@ -382,7 +382,9 @@ local function ResultButtonEnterSpecial(self)
                     local name = CodexDB.units.loc[unitId]
                     if sellCount ~= 0 then name = name .. " (" .. sellCount .. ")" end
                     local zone = units[unitId].coords and units[unitId].coords[1] and units[unitId].coords[1][3]
-                    GameTooltip:AddDoubleLine(name, (zone and CodexMap:GetMapNameById(zone) or UNKNOWN), 1, 1, 1, 0.5, 0.5, 0.5)
+                    local zoneName = (zone and CodexMap:GetMapNameById(zone) or UNKNOWN)
+                    local coords = units[unitId].coords[1] and ('(' .. units[unitId].coords[1][1] .. ' ' .. units[unitId].coords[1][2] .. ')') or ''
+                    GameTooltip:AddDoubleLine(name, zoneName .. coords , 1, 1, 1, 0.5, 0.5, 0.5)
                 end
             end
         end
